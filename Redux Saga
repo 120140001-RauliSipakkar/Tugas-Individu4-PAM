@@ -1,0 +1,13 @@
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import * as dataActions from './actions/action'
+import Apps from './reducer'
+import dataSaga from './saga/saga'
+
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(Apps, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(dataSaga)
+
+store.subscribe(function () {
+  console.log(store.getState()) 
+})
